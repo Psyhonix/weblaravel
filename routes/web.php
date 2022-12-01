@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
+use Telegram\Bot\Api;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -14,7 +15,14 @@ use App\Http\Controllers\UserController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    //return view('welcome');
+
+
+    $response = Telegram::getMe();
+    $botId = $response->getId();
+    $firstName = $response->getFirstName();
+    $username = $response->getUsername();
+    echo $botId . '<br />' . $firstName . '<br />' . $username;
 });
 
 Route::resource('users', UserController::class)
